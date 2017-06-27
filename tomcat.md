@@ -1,4 +1,4 @@
-# Using soft linking file in webapps
+# Using soft linking file or directory in webapps when deploy the web app in tomcat
 
 You need to modify the ${TOMCAT_HOME}/conf/context.xml
 
