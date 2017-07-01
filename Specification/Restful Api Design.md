@@ -62,9 +62,11 @@ URI 表示资源，资源一般对应服务器端领域模型中的实体类。U
 # 应答（Response）
 
 ## 业务响应码
-| 响应码 | 消息模版 | 应用场景 |
-|:------:|:--------:|:--------:|
-| 0      | success  | 执行成功 |
+| 响应码 | 消息模版             | 应用场景 |
+|:------:|:--------------------:|:--------:|
+| 0      | success              | 执行成功 |
+| 1      | ${EXCEPTION_MESSAGE} | 执行失败 |
+| 2      |                      |          |
 
 ## http响应码
 - 参考[HTTP状态码](http://baike.baidu.com/link?url=wlRdinTy-Zq_2ZGJNWPwABqblA2V2TnbNBr4sOSoF1-hzFRsdZe37VVhBWTPdDnw8IDVgGFmslSX0zoqYA5SQlnWdCbMXY4CzxgSsodCw_c6EpoteGLfr9IhKvcr51B_)
