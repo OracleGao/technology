@@ -97,8 +97,7 @@ URI 表示资源，资源一般对应服务器端领域模型中的实体类。U
             "companyId": "2",
             "companyName": "Capcom",
             "deleteFlag": "0" 
-        },
-        ...
+        }
     ]
 }
 ```
@@ -107,7 +106,7 @@ URI 表示资源，资源一般对应服务器端领域模型中的实体类。U
 {
     "rc": "0",
     "msg": "success",
-    data:{
+    "data":{
         "content": [
             {
                 "companyId": "1",
