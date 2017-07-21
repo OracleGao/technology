@@ -41,3 +41,35 @@
 ### Dao层不应出现的情况
 - sql语句的where条件出现函数或计算
 - sql语句出现无法使用索引的情况
+
+# api异常处理
+- 框架所有层不做异常处理，只抛出异常。除非需要对异常情况特殊处理，处理结束后依然要将异常抛出。
+- 与业务逻辑有关的异常要统一使用com.fxtx.service.exception.ServiceBusinessException类抛出异常
+```java
+    public AdminUser login(AdminUser adminUser) {
+        AdminUser adminUserTmp = this.getEntity("getByUserName", adminUser.getUserName());
+        if (adminUserTmp == null) {
+            // throw new Exception("用户名或密码错误");
+        	throw new ServiceBusinessException("101", "用户名或密码错误");
+        }
+        if (AdminUser.Status.lock.code.equals(adminUserTmp.getStatus())) {
+        	// throw new Exception("此账户已被锁定");
+        	throw new ServiceBusinessException("102", "此账户已被锁定");
+        }
+
+        AdminUser adminUser1 = new AdminUser();
+        adminUser1.setPassword(adminUser.getPassword());
+        adminUser1.setSalt(adminUserTmp.getSalt());
+        if (!adminUserTmp.getPassword().equals(encrypt(adminUser1))) {
+            //throw new Exception("用户名或密码错误");
+        	throw new ServiceBusinessException("103", "此账户已被锁定");
+        }
+        AdminUser updateAdminUser = new AdminUser();
+        updateAdminUser.setId(adminUserTmp.getId());
+        updateAdminUser.setLastLoginTime(new Date());
+        updateAdminUser.setLastLoginIp(adminUser.getLastLoginIp());
+        updateAdminUser.setLoginCount(adminUserTmp.getLoginCount() + 1);
+        this.updateBySelective(updateAdminUser);
+        return adminUserTmp;
+    }
+```
