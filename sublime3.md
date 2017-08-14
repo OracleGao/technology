@@ -40,4 +40,8 @@ import urllib.request,os,hashlib; h = 'df21e130d211cfc94d9b0905775a7c0f' + '1e3d
 ```
 ### Plugins Installation
 - click "Perference -> Package Control"
-- 
+1. ConvertToUTF8 支持 GBK, BIG5, EUC-KR, EUC-JP, Shift_JIS 等编码的插件
+2. Bracket Highlighter 用于匹配括号，引号和html标签。对于很长的代码很有用。安装好之后，不需要设置插件会自动生效
+3. Emmet(Zen Coding)快速生成HTML代码段的插件，强大到无与伦比，不知道的请自行google
+4. SideBar Enhancements 这个插件改进了侧边栏，增加了许多功能
+5. Themr 主题管理，切换主题的时候，不用自己修改配置文件了，用这个可以方便的切换主题
