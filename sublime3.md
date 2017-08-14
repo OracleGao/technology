@@ -39,7 +39,7 @@ E585BBA1 2538C270 E2E857C2 194283CA
 import urllib.request,os,hashlib; h = 'df21e130d211cfc94d9b0905775a7c0f' + '1e3d39e33b79698005270310898eea76'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)
 ```
 ### Plugins Installation
-- click "Perference -> Package Control"
+- click "Perference -> Package Control" and then input install
 1. ConvertToUTF8 支持 GBK, BIG5, EUC-KR, EUC-JP, Shift_JIS 等编码的插件
 2. Bracket Highlighter 用于匹配括号，引号和html标签。对于很长的代码很有用。安装好之后，不需要设置插件会自动生效
 3. Emmet(Zen Coding)快速生成HTML代码段的插件，强大到无与伦比，不知道的请自行google
