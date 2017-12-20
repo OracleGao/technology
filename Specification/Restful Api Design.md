@@ -72,9 +72,9 @@ URI 表示资源，资源一般对应服务器端领域模型中的实体类。U
 - 单实体查询
 ```json
 {
-    "rc": "0",
-    "msg": "success",
-    "data": {
+    "code": "0",
+    "message": "success",
+    "content": {
         "companyId": "1",
         "companyName": "动视暴雪",
         "deleteFlag": "0" 
@@ -84,9 +84,9 @@ URI 表示资源，资源一般对应服务器端领域模型中的实体类。U
 - 多实体查询
 ```json
 {
-    "rc": "0",
-    "msg": "success",
-    "data": [
+    "code": "0",
+    "message": "success",
+    "content": [
         {
             "companyId": "1",
             "companyName": "动视暴雪",
@@ -103,9 +103,9 @@ URI 表示资源，资源一般对应服务器端领域模型中的实体类。U
 - 多实体分页查询（分页采用spring标准Page<T>）
 ```json
 {
-    "rc": "0",
-    "msg": "success",
-    "data":{
+    "code": "0",
+    "message": "success",
+    "content":{
         "content": [
             {
                 "companyId": "1",
