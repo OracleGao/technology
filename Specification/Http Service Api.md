@@ -141,7 +141,7 @@ URI 表示资源，资源一般对应服务器端领域模型中的实体类。U
 
 ## json格式约定
 - 不传Null字段
-- 属性值均使用String格式
+- 属性值只使用String和Integer格式
 
 # 版本（Version）
 -/api/v{main-version}
