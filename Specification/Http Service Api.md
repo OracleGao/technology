@@ -4,7 +4,7 @@ URI 表示资源，资源一般对应服务器端领域模型中的实体类。U
 - 参数列表要encode，默认编码方式UTF-8
 - 查询参数变量命名采用驼峰格式，且首字母小写
 - 响应数据中变量命名采用驼峰格式，其首字母小写
-- fetch,create,update,delete为保留字，不可在url中用于表达业务语义
+- cre(create),upd(update),ret(retrieve),del(delete)为保留字，不可在url中用于表达业务语义
 
 # 请求（Request）
 ## Http 方法和特性
@@ -14,13 +14,13 @@ URI 表示资源，资源一般对应服务器端领域模型中的实体类。U
 | POST        | 增强查询和其它所有操作     |
 
 ## Http 方法举例
-- GET /companies/fetch: 获取公司实体集合 List all Companies (ID and Name, not too much detail)
-- POST /companies/fetch: 获取公司实体集合,使用body传递参数（格式为json） List all Companies (ID and Name, not too much detail)【条件复杂的查询】
-- POST /companies/create: 创建一个公司实体 Create a new Company
-- GET /companies/fetch/{comid}: 获取单个公司实体 Retrieve an entire Company object
-- POST /companies/fetch/{comid}: 获取单个公司实体 Retrieve an entire Company object【可选】
-- POST /companies/update/{comid}: 更新整个公司实体 Update a Company (entire object)
-- POST /companies/delete/{comid}: 删除公司实体 Delete a Company
+- GET /companies/ret: 获取公司实体集合 List all Companies (ID and Name, not too much detail)
+- POST /companies/ret: 获取公司实体集合,使用body传递参数（格式为json） List all Companies (ID and Name, not too much detail)【条件复杂的查询】
+- POST /companies/cre: 创建一个公司实体 Create a new Company
+- GET /companies/ret/{comid}: 获取单个公司实体 Retrieve an entire Company object
+- POST /companies/ret/{comid}: 获取单个公司实体 Retrieve an entire Company object【可选】
+- POST /companies/upd/{comid}: 更新整个公司实体 Update a Company (entire object)
+- POST /companies/del/{comid}: 删除公司实体 Delete a Company
 
 ## 复杂查询
 |          | 示例                        |  备注  |
@@ -44,7 +44,7 @@ URI 表示资源，资源一般对应服务器端领域模型中的实体类。U
 - Content-Type: multipart/form-data; boundary=—-RANDOM_jDMUxq4Ot5 (表单有文件上传时的格式)
 
 ## uri响应格式后缀
-- json（默认）：/companies/fetch/1.json（.json可选"/companies/fetch/1"亦可）
+- json（默认）：/companies/ret/1.json（.json可选"/companies/ret/1"亦可）
 
 # 应答（Response）
 
