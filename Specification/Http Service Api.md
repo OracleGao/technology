@@ -43,7 +43,7 @@ URI 表示资源，资源一般对应服务器端领域模型中的实体类。U
 - Content-Type: multipart/form-data; boundary=—-RANDOM_jDMUxq4Ot5 (表单有文件上传时的格式)
 
 ## uri响应格式后缀
-- json（默认）：/companies/fetch/1.json（可选）
+- json（默认）：/companies/fetch/1.json（.json可选"/companies/fetch/1"亦可）
 
 # 应答（Response）
 
