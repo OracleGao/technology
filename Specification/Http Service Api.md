@@ -1,10 +1,16 @@
+# Version
+|版本号|更新时间 | 更新内容 |
+|:----:|:----:|:----:|
+| v1.1.0 | 20171220 | 增加导出操作，增加版本 |
+| v1.0.0 | 20171220 | 新建 |
+
 # URI
 URI 表示资源，资源一般对应服务器端领域模型中的实体类。URI指向的是唯一的资源对象。
 ## 命名规范
 - 参数列表要encode，默认编码方式UTF-8
 - 查询参数变量命名采用驼峰格式，且首字母小写
 - 响应数据中变量命名采用驼峰格式，其首字母小写
-- add(create),update,list(retrieve),del(delete)为保留字，不可在url中用于表达业务语义
+- add(create),update,list(retrieve),del(delete),export为保留字，不可在url中用于表达业务语义
 
 # 请求（Request）
 ## Http 方法和特性
@@ -21,6 +27,7 @@ URI 表示资源，资源一般对应服务器端领域模型中的实体类。U
 - POST /companies/list/{comid}: 获取单个公司实体 Retrieve an entire Company object【可选】
 - POST /companies/update/{comid}: 更新整个公司实体 Update a Company (entire object)
 - POST /companies/del/{comid}: 删除公司实体 Delete a Company
+- GET /companies/export/{comid}: 导出公司信息列表content中为文件下载url
 
 ## 复杂查询
 |          | 示例                        |  备注  |
