@@ -126,7 +126,7 @@ URI 表示资源，资源一般对应服务器端领域模型中的实体类。U
 ## 应答数据格式
 ```json
 {
-    "code": "0",
+    "code": "0",
     "message": "success",
     "content": {} | []
 }
