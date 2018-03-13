@@ -12,3 +12,6 @@
 
 ## git
 [Git](https://github.com/OracleGao/technology/blob/master/git.md)
+
+## linux
+[Linux](https://github.com/OracleGao/technology/blob/master/linux.md)
