@@ -17,4 +17,4 @@
 [Linux](https://github.com/OracleGao/technology/blob/master/linux.md)
 
 ## php
-[Linux](https://github.com/OracleGao/technology/blob/master/php.md)
+[Php](https://github.com/OracleGao/technology/blob/master/php.md)
