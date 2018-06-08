@@ -28,6 +28,9 @@
 # URI
 - URI 表示资源，资源一般对应服务器端领域模型中的业务实体对象。URI指向的是唯一的业务实体对象。
 
+## 版本（Version）
+- /api/v{version}， uri接口版本，合法的格式x.y。比如/api/v1.0
+
 ## 命名规范
 - 参数列表要encode，默认编码方式UTF-8
 - 查询参数变量命名采用驼峰格式，且首字母小写
@@ -36,9 +39,7 @@
 
 ## URI格式规范
 - /api/v${version}/${group}/${function}/${opt}/${id}
-
-### verson
-- uri接口版本，合法的格式x.y。比如1.0
+- 所有uri结尾不加'/'
 
 ### group
 - 功能组名称，可选，对应代码中的类目录（文件夹）或分组【Controller所在文件夹或分组】
@@ -204,8 +205,6 @@
 - 传递所有必要的属性字段，null值传递null
 - 属性值只使用String，除null
 
-# 版本（Version）
--/api/v{main-version}
 
 # 参考（Reference）
 - [RESTful Best Practices](https://segmentfault.com/a/1190000002949234)
