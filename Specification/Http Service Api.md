@@ -77,8 +77,8 @@
 - POST /company/add: 创建一个公司实体 Create a new Company
 - GET /company/list/{comid}: 获取单个公司实体 Retrieve an entire Company object
 - POST /company/list/{comid}: 获取单个公司实体 Retrieve an entire Company object【可选】
-- POST /company/update/{comid}: 更新公司实体 Update a Company (entire object)
-- POST /company/save
+- POST /company/update/{comid}: 更新公司实体 Update a Company （允许局部字段更新）
+- POST /company/save（允许局部字段更新）
 - POST /company/del/{comid}: 删除公司实体 Delete a Company
 - GET /company/export/{comid}: 导出公司信息列表content中为文件下载url
 
