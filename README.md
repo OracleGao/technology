@@ -1,5 +1,5 @@
 # technology
-记录遇到的技术问题，以及处理方案。
+记录遇到的技术问题，命令示例以及处理方案。
 
 ## Tomcat
 [Tomcat](https://github.com/OracleGao/technology/blob/master/tomcat.md)
@@ -18,3 +18,7 @@
 
 ## php
 [Php](https://github.com/OracleGao/technology/blob/master/php.md)
+
+## awk
+[awk命令示例](https://github.com/OracleGao/technology/blob/master/awk.md)
+
