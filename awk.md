@@ -19,7 +19,9 @@
 cat data | awk -F ' ' '{a[$1] += 1}END{for (i in a){printf "%s,%d\n", i, a[i]} }'
 ```
 ```shell
-
+112.224.17.226,4
+223.104.6.127,1
+183.209.247.111,5
 ```
 
 - group by ip date method
@@ -27,5 +29,10 @@ cat data | awk -F ' ' '{a[$1] += 1}END{for (i in a){printf "%s,%d\n", i, a[i]} }
 cat data | awk -F ' ' '{a[$1","substr($4, 2, 11)","substr($6, 2)] += 1}END{for (i in a){printf "%s,%d\n", i, a[i]} }'
 ```
 ```shell
-
+112.224.17.226,12/Aug/2018,GET,1
+112.224.17.226,13/Aug/2018,GET,2
+183.209.247.111,13/Aug/2018,POST,2
+112.224.17.226,13/Aug/2018,POST,1
+183.209.247.111,13/Aug/2018,GET,3
+223.104.6.127,13/Aug/2018,GET,1
 ```
