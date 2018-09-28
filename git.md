@@ -8,4 +8,4 @@
 git config --global http."sslVerify" false
 ```
 
-- [【Peer’s Certificate issuer is not recognized】错误解决方法](https://www.jianshu.com/p/fa71d97dcde0)
+- Ref: [【Peer’s Certificate issuer is not recognized】错误解决方法](https://www.jianshu.com/p/fa71d97dcde0)
