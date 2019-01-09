@@ -16,7 +16,8 @@ endif
 ```
 
 # 给普通用户添加sudo权限<ubuntu 16.04>
-- 编辑/etc/sudoers,模仿root的设置方式在User privilege specification下方增加 ${username} ALL=(ALL:ALL) ALL，下面是给casia用户添加sudo权限的例子
+- 编辑/etc/sudoers,模仿root的设置方式在User privilege specification下方新行增加"${username} ALL=(ALL:ALL) ALL"
+- 下面是给casia用户添加sudo权限的例子
 ``` txt
 # User privilege specification
 root    ALL=(ALL:ALL) ALL
