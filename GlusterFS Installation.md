@@ -56,7 +56,7 @@ I/O size (minimum/optimal): 512 bytes / 512 bytes
 
 ```
 
-- 格式化磁盘
+- 创建磁盘分区
 ``` shell
 fdisk /dev/vdb
 ```
@@ -87,5 +87,19 @@ Syncing disks.
 ```
 - 格式化磁盘
 ``` shell
+mkfs.ext4 /dev/vdb1
+```
+``` txt
+mke2fs 1.42.13 (17-May-2015)
+Creating filesystem with 5242624 4k blocks and 1310720 inodes
+Filesystem UUID: 91ac074b-a340-4121-9985-33f1564a1a2b
+Superblock backups stored on blocks:
+        32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632, 2654208,
+        4096000
+
+Allocating group tables: done
+Writing inode tables: done
+Creating journal (32768 blocks): done
+Writing superblocks and filesystem accounting information: done
 
 ```
