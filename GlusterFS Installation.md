@@ -161,7 +161,7 @@ UUID=9d9f7fac-a917-4ac4-b0b9-4d7f48e30815    /glusterfs/data2    ext4    default
 
 UUID=5156f0a2-74af-4de4-bcbe-d4cda0093a00    /glusterfs/data3    ext4    defaults    0    0
 ```
-   - 关于上面示例中的UUID的获取,执行下面的指令获取
+  - 关于上面示例中的UUID,执行下面的指令获取
 ``` shell
 ls -al /dev/disk/by-uuid
 ```
