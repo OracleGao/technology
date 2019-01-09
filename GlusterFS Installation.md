@@ -19,6 +19,8 @@ Copyright (c) 2006-2011 Gluster Inc. <http://www.gluster.com>
 GlusterFS comes with ABSOLUTELY NO WARRANTY.
 You may redistribute copies of GlusterFS under the terms of the GNU General Public License.
 ```
+- 构建集群
+
 
 ### 创建nfs存储服务
 - 查看server端外挂磁盘
@@ -177,18 +179,22 @@ lrwxrwxrwx 1 root root  10 Jan  9 15:30 9d9f7fac-a917-4ac4-b0b9-4d7f48e30815 -> 
 
 - 脚本汇总
 ``` shell
-fidsk /dev/vdb
+fdisk -l
+
+fdisk /dev/vdb
 mkfs.ext4 /dev/vdb1
 mkdir -p /glusterfs/data1
 mount /dev/vdb1 /glusterfs/data1
 
-fidsk /dev/vdc
+fdisk /dev/vdc
 mkfs.ext4 /dev/vdc1
 mkdir -p /glusterfs/data2
 mount /dev/vdc1 /glusterfs/data2
 
-fidsk /dev/vdd
+fdisk /dev/vdd
 mkfs.ext4 /dev/vdd1
 mkdir -p /glusterfs/data3
 mount /dev/vdd1 /glusterfs/data3
+
+ls -al /dev/disk/by-uuid
 ```
