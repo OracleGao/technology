@@ -1,7 +1,8 @@
 # GlusterFS安装
 
-## Ubuntu 16.04
-### 环境准备
+- Ubuntu 16.04上安装
+## 环境准备
+### 操作系统环境准备
 - 3台机器作为server(server也可作为client【正式（生产）环境不建议】)
 - dev01 / 192.168.100.1 / disk 20G * 3 
   - /etc/hosts
@@ -34,83 +35,8 @@
 192.168.100.4    dev04
 ``` 
 
-- glusterfs集群为p2p模式，在任意server节点上执行gluster peer probe ${host}构建集群
-- 下面以dev01为示例构建集群
-``` shell
-gluster peer probe dev02
-gluster peer probe dev03
-```
-- 验证集群
-  - dev01
-``` shell
-gluster peer status
-```
-``` txt
-Number of Peers: 2
-
-Hostname: dev02
-Uuid: b8096c7f-7d52-4c86-8123-226e7354be21
-State: Peer in Cluster (Connected)
-
-Hostname: dev03
-Uuid: 10beb86d-cf2f-4590-a54a-7c65f25aa066
-State: Peer in Cluster (Connected)
-```
-  - dev02
-``` shell
-gluster peer status
-``` 
-``` txt
-Number of Peers: 2
-
-Hostname: dev01
-Uuid: bdd84fee-7d0e-453c-abb4-25cf44ac64fe
-State: Peer in Cluster (Connected)
-
-Hostname: dev03
-Uuid: 10beb86d-cf2f-4590-a54a-7c65f25aa066
-State: Peer in Cluster (Connected)
-```
-  - dev03
-``` shell
-gluster peer status
-```
-``` txt
-Number of Peers: 2
-
-Hostname: dev01
-Uuid: bdd84fee-7d0e-453c-abb4-25cf44ac64fe
-State: Peer in Cluster (Connected)
-
-Hostname: dev02
-Uuid: b8096c7f-7d52-4c86-8123-226e7354be21
-State: Peer in Cluster (Connected)
-```
-
-### Gluster Server安装
-- server端安装自带client端
-- 安装指令
-``` shell
-apt-get update
-apt-get install -y glusterfs-server
-```
-- 验证指令
-``` shell
-gluster --version
-```
-``` txt
-glusterfs 3.7.6 built on Dec 25 2015 20:50:46
-Repository revision: git://git.gluster.com/glusterfs.git
-Copyright (c) 2006-2011 Gluster Inc. <http://www.gluster.com>
-GlusterFS comes with ABSOLUTELY NO WARRANTY.
-You may redistribute copies of GlusterFS under the terms of the GNU General Public License.
-```
-- 构建集群
-
-
-
-### 创建nfs存储服务
-- 查看server端外挂磁盘
+### 存储设备准备（server端）
+1. 查看server端外挂磁盘
 ``` shell
 fdisk -l
 ```
@@ -145,7 +71,7 @@ I/O size (minimum/optimal): 512 bytes / 512 bytes
 
 ```
 
-- 创建磁盘分区
+2. 创建磁盘分区
 ``` shell
 fdisk /dev/vdb
 ```
@@ -175,7 +101,7 @@ Syncing disks.
 
 ```
 
-- 格式化磁盘
+3. 格式化磁盘
 ``` shell
 mkfs.ext4 /dev/vdb1
 ```
@@ -194,7 +120,7 @@ Writing superblocks and filesystem accounting information: done
 
 ```
 
-- 挂在磁盘
+3. 挂载磁盘
 ``` shell
 mkdir -p /glusterfs/data1
 mount /dev/vdb1 /glusterfs/data1
@@ -229,7 +155,7 @@ tmpfs          1021851      4 1021847    1% /run/user/1000
 /dev/vdb1      1310720     11 1310709    1% /glusterfs/data1
 ```
 
-- 自动挂载
+4. 开机自动挂载
   - 编辑/etc/fstab文件实现开机自动挂载磁盘, 在已有的磁盘挂在下面增加新的磁盘挂载配置
   - 下面示例新增了/glusterfs/data1,/glusterfs/data2,/glusterfs/data3这三个开机自动磁盘挂载
 ```
@@ -250,7 +176,7 @@ UUID=9d9f7fac-a917-4ac4-b0b9-4d7f48e30815    /glusterfs/data2    ext4    default
 
 UUID=5156f0a2-74af-4de4-bcbe-d4cda0093a00    /glusterfs/data3    ext4    defaults    0    0
 ```
-  - 关于上面示例中的UUID,执行下面的指令获取
+- 关于上面示例中的UUID,执行下面的指令获取
 ``` shell
 ls -al /dev/disk/by-uuid
 ```
@@ -264,7 +190,7 @@ lrwxrwxrwx 1 root root  10 Jan  9 15:30 91ac074b-a340-4121-9985-33f1564a1a2b -> 
 lrwxrwxrwx 1 root root  10 Jan  9 15:30 9d9f7fac-a917-4ac4-b0b9-4d7f48e30815 -> ../../vdc1
 ```
 
-- 脚本汇总
+5. 脚本汇总
 ``` shell
 fdisk -l
 
@@ -285,3 +211,80 @@ mount /dev/vdd1 /glusterfs/data3
 
 ls -al /dev/disk/by-uuid
 ```
+
+## Glusterfs Server安装
+- server端安装自带client端
+### 软件安装
+- 安装指令
+``` shell
+apt-get update
+apt-get install -y glusterfs-server
+```
+- 验证指令
+``` shell
+gluster --version
+```
+``` txt
+glusterfs 3.7.6 built on Dec 25 2015 20:50:46
+Repository revision: git://git.gluster.com/glusterfs.git
+Copyright (c) 2006-2011 Gluster Inc. <http://www.gluster.com>
+GlusterFS comes with ABSOLUTELY NO WARRANTY.
+You may redistribute copies of GlusterFS under the terms of the GNU General Public License.
+```
+
+### 构建集群
+- glusterfs集群为p2p模式，在任意server节点上执行gluster peer probe ${host}构建集群
+1. 下面以dev01为示例构建集群
+``` shell
+gluster peer probe dev02
+gluster peer probe dev03
+```
+2. 验证集群
+- dev01
+``` shell
+gluster peer status
+```
+``` txt
+Number of Peers: 2
+
+Hostname: dev02
+Uuid: b8096c7f-7d52-4c86-8123-226e7354be21
+State: Peer in Cluster (Connected)
+
+Hostname: dev03
+Uuid: 10beb86d-cf2f-4590-a54a-7c65f25aa066
+State: Peer in Cluster (Connected)
+```
+- dev02
+``` shell
+gluster peer status
+``` 
+``` txt
+Number of Peers: 2
+
+Hostname: dev01
+Uuid: bdd84fee-7d0e-453c-abb4-25cf44ac64fe
+State: Peer in Cluster (Connected)
+
+Hostname: dev03
+Uuid: 10beb86d-cf2f-4590-a54a-7c65f25aa066
+State: Peer in Cluster (Connected)
+```
+- dev03
+``` shell
+gluster peer status
+```
+``` txt
+Number of Peers: 2
+
+Hostname: dev01
+Uuid: bdd84fee-7d0e-453c-abb4-25cf44ac64fe
+State: Peer in Cluster (Connected)
+
+Hostname: dev02
+Uuid: b8096c7f-7d52-4c86-8123-226e7354be21
+State: Peer in Cluster (Connected)
+```
+
+
+### 创建nfs存储服务
