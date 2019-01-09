@@ -1,6 +1,40 @@
 # GlusterFS安装
 
 ## Ubuntu 16.04
+### 环境准备
+- 3台机器作为server(server也可作为client【正式（生产）环境不建议】)
+- dev01 / 192.168.100.1 / disk 20G * 3 
+  - /etc/hosts
+``` text
+127.0.0.1        dev01 
+192.168.100.2    dev02
+192.168.100.3    dev03 
+```
+- dev02 / 192.168.100.2 / disk 20G * 3
+  - /etc/hosts
+``` text
+192.168.100.1    dev01 
+127.0.0.1        dev02
+192.168.100.3    dev03 
+``` 
+- dev03 / 192.168.100.3 / disk 20G * 3
+  - /etc/hosts
+``` text
+192.168.100.1    dev01 
+192.168.100.2    dev02 
+127.0.0.1         dev03 
+``` 
+- 一台机器作为client
+- dev04 / 192.168.100.4
+  - /etc/hosts
+``` text
+192.168.100.1    dev01 
+192.168.100.2    dev02 
+192.168.100.3    dev03 
+192.168.100.4    dev04
+``` 
+
+
 ### Gluster Server安装
 - server端安装自带client端
 - 安装指令
@@ -20,6 +54,7 @@ GlusterFS comes with ABSOLUTELY NO WARRANTY.
 You may redistribute copies of GlusterFS under the terms of the GNU General Public License.
 ```
 - 构建集群
+
 
 
 ### 创建nfs存储服务
