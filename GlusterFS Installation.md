@@ -140,6 +140,41 @@ tmpfs          1021851      4 1021847    1% /run/user/1000
 /dev/vdb1      1310720     11 1310709    1% /glusterfs/data1
 ```
 
+- 自动挂载
+  - 编辑/etc/fstab文件实现开机自动挂载磁盘, 在已有的磁盘挂在下面增加新的磁盘挂载配置
+  - 下面示例新增了/glusterfs/data1,/glusterfs/data2,/glusterfs/data3这三个开机自动磁盘挂载
+```
+# /etc/fstab: static file system information.
+#
+# Use 'blkid' to print the universally unique identifier for a
+# device; this may be used with UUID= as a more robust way to name devices
+# that works even if disks are added and removed. See fstab(5).
+#
+# <file system> <mount point>   <type>  <options>       <dump>  <pass>
+# / was on /dev/vda1 during installation
+UUID=3912d405-202c-45a4-96f9-0d5fc39ab7ce /               ext4    errors=remount-ro 0       1
+/dev/fd0        /media/floppy0  auto    rw,user,noauto,exec,utf8 0       0
+
+UUID=91ac074b-a340-4121-9985-33f1564a1a2b    /glusterfs/data1    ext4    defaults    0    0
+
+UUID=9d9f7fac-a917-4ac4-b0b9-4d7f48e30815    /glusterfs/data2    ext4    defaults    0    0
+
+UUID=5156f0a2-74af-4de4-bcbe-d4cda0093a00    /glusterfs/data3    ext4    defaults    0    0
+```
+   - 关于上面示例中的UUID的获取,执行下面的指令获取
+``` shell
+ls -al /dev/disk/by-uuid
+```
+``` txt
+total 0
+drwxr-xr-x 2 root root 120 Jan  9  2019 .
+drwxr-xr-x 5 root root 100 Jan  9  2019 ..
+lrwxrwxrwx 1 root root  10 Jan  9 15:30 3912d405-202c-45a4-96f9-0d5fc39ab7ce -> ../../vda1
+lrwxrwxrwx 1 root root  10 Jan  9 15:30 5156f0a2-74af-4de4-bcbe-d4cda0093a00 -> ../../vdd1
+lrwxrwxrwx 1 root root  10 Jan  9 15:30 91ac074b-a340-4121-9985-33f1564a1a2b -> ../../vdb1
+lrwxrwxrwx 1 root root  10 Jan  9 15:30 9d9f7fac-a917-4ac4-b0b9-4d7f48e30815 -> ../../vdc1
+```
+
 - 脚本汇总
 ``` shell
 fidsk /dev/vdb
