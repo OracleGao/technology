@@ -139,3 +139,21 @@ tmpfs          1021851     16 1021835    1% /sys/fs/cgroup
 tmpfs          1021851      4 1021847    1% /run/user/1000
 /dev/vdb1      1310720     11 1310709    1% /glusterfs/data1
 ```
+
+- 脚本汇总
+``` shell
+fidsk /dev/vdb
+mkfs.ext4 /dev/vdb1
+mkdir -p /glusterfs/data1
+mount /dev/vdb1 /glusterfs/data1
+
+fidsk /dev/vdc
+mkfs.ext4 /dev/vdc1
+mkdir -p /glusterfs/data2
+mount /dev/vdc1 /glusterfs/data2
+
+fidsk /dev/vdd
+mkfs.ext4 /dev/vdd1
+mkdir -p /glusterfs/data3
+mount /dev/vdd1 /glusterfs/data3
+```
