@@ -85,6 +85,7 @@ Calling ioctl() to re-read partition table.
 Syncing disks.
 
 ```
+
 - 格式化磁盘
 ``` shell
 mkfs.ext4 /dev/vdb1
@@ -102,4 +103,39 @@ Writing inode tables: done
 Creating journal (32768 blocks): done
 Writing superblocks and filesystem accounting information: done
 
+```
+
+- 挂在磁盘
+``` shell
+mkdir -p /glusterfs/data1
+mount /dev/vdb1 /glusterfs/data1
+```
+- 验证挂在
+``` shell
+df -h
+```
+``` txt
+Filesystem      Size  Used Avail Use% Mounted on
+udev            3.9G     0  3.9G   0% /dev
+tmpfs           799M  3.1M  796M   1% /run
+/dev/vda1        40G  2.9G   35G   8% /
+tmpfs           3.9G     0  3.9G   0% /dev/shm
+tmpfs           5.0M     0  5.0M   0% /run/lock
+tmpfs           3.9G     0  3.9G   0% /sys/fs/cgroup
+tmpfs           799M     0  799M   0% /run/user/1000
+/dev/vdb1        20G   44M   19G   1% /glusterfs/data1
+```
+``` shell
+df -i
+```
+``` txt
+Filesystem      Inodes  IUsed   IFree IUse% Mounted on
+udev           1017240    411 1016829    1% /dev
+tmpfs          1021851   1042 1020809    1% /run
+/dev/vda1      2621440 143445 2477995    6% /
+tmpfs          1021851      1 1021850    1% /dev/shm
+tmpfs          1021851      3 1021848    1% /run/lock
+tmpfs          1021851     16 1021835    1% /sys/fs/cgroup
+tmpfs          1021851      4 1021847    1% /run/user/1000
+/dev/vdb1      1310720     11 1310709    1% /glusterfs/data1
 ```
