@@ -22,7 +22,7 @@
 ``` text
 192.168.100.1    dev01 
 192.168.100.2    dev02 
-127.0.0.1         dev03 
+127.0.0.1        dev03 
 ``` 
 - 一台机器作为client
 - dev04 / 192.168.100.4
@@ -34,6 +34,58 @@
 192.168.100.4    dev04
 ``` 
 
+- glusterfs集群为p2p模式，在任意server节点上执行gluster peer probe ${host}构建集群
+- 下面以dev01为示例构建集群
+``` shell
+gluster peer probe dev02
+gluster peer probe dev03
+```
+- 验证集群
+  - dev01
+``` shell
+gluster peer status
+```
+``` txt
+Number of Peers: 2
+
+Hostname: dev02
+Uuid: b8096c7f-7d52-4c86-8123-226e7354be21
+State: Peer in Cluster (Connected)
+
+Hostname: dev03
+Uuid: 10beb86d-cf2f-4590-a54a-7c65f25aa066
+State: Peer in Cluster (Connected)
+```
+  - dev02
+``` shell
+gluster peer status
+``` 
+``` txt
+Number of Peers: 2
+
+Hostname: dev01
+Uuid: bdd84fee-7d0e-453c-abb4-25cf44ac64fe
+State: Peer in Cluster (Connected)
+
+Hostname: dev03
+Uuid: 10beb86d-cf2f-4590-a54a-7c65f25aa066
+State: Peer in Cluster (Connected)
+```
+  - dev03
+``` shell
+gluster peer status
+```
+``` txt
+Number of Peers: 2
+
+Hostname: dev01
+Uuid: bdd84fee-7d0e-453c-abb4-25cf44ac64fe
+State: Peer in Cluster (Connected)
+
+Hostname: dev02
+Uuid: b8096c7f-7d52-4c86-8123-226e7354be21
+State: Peer in Cluster (Connected)
+```
 
 ### Gluster Server安装
 - server端安装自带client端
