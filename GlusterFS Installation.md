@@ -288,6 +288,21 @@ State: Peer in Cluster (Connected)
 
 ### 创建nfs存储服务
 #### 创建网络磁盘
+- 执行指令 gluster volume create ${VOLUME_NAME} ${GLUSTERFS_PEER_HOST_1}:${MOUNT_POINT_1} ... ${GLUSTERFS_PEER_HOST_2}:${MOUNT_POINT_2}... force
+- 指令示例
+``` shell
+gluster volume create gfsv dev01:/glusterfs/data1 dev01:/glusterfs/data2 dev01:/glusterfs/data3 dev02:/glusterfs/data1 dev02:/glusterfs/data2 dev02:/glusterfs/data3 dev03:/glusterfs/data1 dev03:/glusterfs/data2 dev03:/glusterfs/data3 force
+```
+``` txt
+volume create: gfsv: success: please start the volume to access data
+```
+- 启动磁盘服务
+``` shell
+gluster volume start gfsv
+```
+``` txt
+volume start: gfsv: success
+```
 
 ## 问题参考
 - [安装使用过程中异常处理](https://github.com/OracleGao/technology/blob/master/glusterfs.md)
