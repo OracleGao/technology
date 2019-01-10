@@ -288,3 +288,6 @@ State: Peer in Cluster (Connected)
 
 ### 创建nfs存储服务
 #### 创建网络磁盘
+
+## 问题参考
+- [安装使用过程中异常处理](https://github.com/OracleGao/technology/blob/master/glusterfs.md)
