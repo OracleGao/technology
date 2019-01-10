@@ -120,7 +120,7 @@ Writing superblocks and filesystem accounting information: done
 
 ```
 
-3. 挂载磁盘
+4. 挂载磁盘
 ``` shell
 mkdir -p /glusterfs/data1
 mount /dev/vdb1 /glusterfs/data1
@@ -155,7 +155,7 @@ tmpfs          1021851      4 1021847    1% /run/user/1000
 /dev/vdb1      1310720     11 1310709    1% /glusterfs/data1
 ```
 
-4. 开机自动挂载
+5. 开机自动挂载
   - 编辑/etc/fstab文件实现开机自动挂载磁盘, 在已有的磁盘挂在下面增加新的磁盘挂载配置
   - 下面示例新增了/glusterfs/data1,/glusterfs/data2,/glusterfs/data3这三个开机自动磁盘挂载
 ```
@@ -190,7 +190,7 @@ lrwxrwxrwx 1 root root  10 Jan  9 15:30 91ac074b-a340-4121-9985-33f1564a1a2b -> 
 lrwxrwxrwx 1 root root  10 Jan  9 15:30 9d9f7fac-a917-4ac4-b0b9-4d7f48e30815 -> ../../vdc1
 ```
 
-5. 脚本汇总
+6. 脚本汇总
 ``` shell
 fdisk -l
 
@@ -212,7 +212,7 @@ mount /dev/vdd1 /glusterfs/data3
 ls -al /dev/disk/by-uuid
 ```
 
-## Glusterfs Server安装
+## Glusterfs Server安装部署
 - server端安装自带client端
 ### 软件安装
 - 安装指令
@@ -286,5 +286,5 @@ Uuid: b8096c7f-7d52-4c86-8123-226e7354be21
 State: Peer in Cluster (Connected)
 ```
 
-
 ### 创建nfs存储服务
+#### 创建网络磁盘
