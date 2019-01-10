@@ -304,5 +304,38 @@ gluster volume start gfsv
 volume start: gfsv: success
 ```
 
+## 安装GlusterFs客户端
+### 软件安装
+- 执行指令
+``` shell
+apt-get install -y glusterfs-client
+```
+### 挂载网络磁盘
+- 执行指令
+``` shell
+mkdir -p /nfs/data
+mount -t glusterfs dev01:gfsv /nfs/data
+```
+- 验证磁盘
+``` shell
+df -h
+```
+``` txt
+Filesystem      Size  Used Avail Use% Mounted on
+udev            3.9G     0  3.9G   0% /dev
+tmpfs           799M  3.2M  796M   1% /run
+/dev/vda1        40G  2.9G   35G   8% /
+tmpfs           3.9G     0  3.9G   0% /dev/shm
+tmpfs           5.0M     0  5.0M   0% /run/lock
+tmpfs           3.9G     0  3.9G   0% /sys/fs/cgroup
+tmpfs           799M     0  799M   0% /run/user/1000
+dev01:gfsv      177G  397M  167G   1% /nfs/data
+```
+
+### 开机自动挂载
+- 仅限glusterfs服务端与客户端不在同一台设备
+
+
+
 ## 问题参考
 - [安装使用过程中异常处理](https://github.com/OracleGao/technology/blob/master/glusterfs.md)
