@@ -14,7 +14,7 @@
 
 ### 外网代理主机（47.93.199.97）
 - 允许代理的服务绑定到0.0.0.0地址，允许其他主机远程访问服务端口
-- 编辑/etc/ssh/sshd_config， 增加或者打开GatewayPorts配置
+- 编辑/etc/ssh/sshd_config， 增加或者设置GatewayPorts配置
 - 需要重启ssh服务
 ``` txt
 GatewayPorts yes
