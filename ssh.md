@@ -44,7 +44,7 @@ ServerAliveInterval 60   #客户端主动向服务端请求响应的间隔
 
 ### 代理搭建
 #### ssh代理服务
-- 在内网主机执行"ssh -NfR <remote binding host>:<remote bing port>:<local host>:<local port> <remote login user>@<remote host>"指令，然后输入密码，即可完成代理服务搭建
+- 在内网主机执行'ssh -NfR <remote binding host>:<remote bing port>:<local host>:<local port> <remote login user>@<remote host>'指令，然后输入密码，即可完成代理服务搭建
 - 在192.168.10.2内网主机执行以下指令，搭建ssh代理服务
 ``` shell
 ssh -NfR *:2222:127.0.0.1:22 root@47.93.199.97
