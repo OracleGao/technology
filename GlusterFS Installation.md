@@ -233,7 +233,10 @@ You may redistribute copies of GlusterFS under the terms of the GNU General Publ
 ```
 
 ### 构建集群
-- glusterfs集群为p2p模式，在任意server节点上执行gluster peer probe ${host}构建集群
+- glusterfs集群为p2p模式，在任意server节点上执行下面的指令构建集群
+``` shell
+gluster peer probe <host>
+```
 1. 下面以dev01为示例构建集群
 ``` shell
 gluster peer probe dev02
@@ -288,7 +291,10 @@ State: Peer in Cluster (Connected)
 
 ### 创建nfs存储服务
 #### 创建网络磁盘
-- 执行指令 gluster volume create ${VOLUME_NAME} ${GLUSTERFS_PEER_HOST_1}:${MOUNT_POINT_1} ... ${GLUSTERFS_PEER_HOST_2}:${MOUNT_POINT_2}... force
+- 执行指令 下面的指令创建网络磁盘
+``` shell
+gluster volume create <volume name> <glusterfs peer host>:<disk path> ... force
+```
 - 指令示例
 ``` shell
 gluster volume create gfsv dev01:/glusterfs/data1 dev01:/glusterfs/data2 dev01:/glusterfs/data3 dev02:/glusterfs/data1 dev02:/glusterfs/data2 dev02:/glusterfs/data3 dev03:/glusterfs/data1 dev03:/glusterfs/data2 dev03:/glusterfs/data3 force
