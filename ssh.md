@@ -55,5 +55,5 @@ ssh -NfR *:2222:127.0.0.1:22 root@47.93.199.97
 ssh -NfR *:23306:127.0.0.1:3306 root@47.93.199.97
 ```
 
-## ref
+## Refs
 - [ssh tunnel 三种模式](https://github.com/caojx-git/learn/blob/master/notes/linux/ssh%20tunnel%20%E4%B8%89%E7%A7%8D%E6%A8%A1%E5%BC%8F_2.md)
