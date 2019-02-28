@@ -32,3 +32,10 @@ WHERE
 ```
 ### Refs
 - [MYSQL查询数据库表索引的硬盘空间占用](https://www.cnblogs.com/hubing/p/3365664.html)
+
+## 修改Mysql root密码
+``` sql
+use mysql; 
+update user set authentication_string=password('changeit') where user='root' and host='%'; 
+flush privileges;
+```
