@@ -20,16 +20,54 @@ URI 表示资源，资源一般对应服务器端领域模型中的实体类。U
 
 ## 实体模型表达
 - 使用uri的资源和资源id关系表达关系数据模型
+- 返回的数据从uri左侧资源属性展开
+- 修改数据属性操作只针对uri的资源为单一结果（非集合）
+- 获取分页集合的uri使用list(单数)结尾
+- 获取全部集合的uri使用listall(单数)结尾
+- 建立或解除关联关系的uri使用relation(单数)结尾
+- 使用【CRUD】（Create，Read，Update,Delete）表示可用操作
 
 ### 一对一
-- /实体1/实体2/{实体id}
+- /实体1/实体2/{实体1id}，操作实体2的数据【CRUD】
+- /实体2/实体1/{实体2id}，操作实体1的数据【CRUD】
+
 #### 举例
-- 学生信息(std)和学生附加信息(stdattach)两个实体形成一对一的关系那么
-- 获取学生信息的uri设计为：/stds/{id}
-- 获取学生信息以及附加信息的uri设计为：/stds/stdattachs/{id}
+- 学生信息(std)和学生附加信息(stdattach)两个实体形成一对一的关系
+- 获取学生信息的uri设计为：/stdattachs/stds{said}，操作学生信息【CRUD】
+- 获取或修改附加信息的uri设计为：/stds/stdattachs/{stdid}，操作学生附加信息
+
 ### 一对多
+- 一对多：/一端实体/{一端id}/多端实体/{多端id}， 返回的数据为一端实体集合
+- 一对一：/一端实体/多端实体/{一端id}， 返回的数据只包含多端实体
 
+#### 举例
+- 班级(cls)和学生(std)两个实体形成一对多的关系：一个班级有多个学生，而一个学生只能属于一个班级
+- 获取或更改学生信息设计：/clses/{clsid}/stds/{stdid}， 返回学生
+- 获取学生信息集合设计：/clses/{clsid}/stds/list，返回学生集合
+- 获取或修改班级信息设计：/stds/clses/{stdid}，返回班级
+- 移除学生移除班级：/stds/clses/{stdid}/relation【DL】
 
+### 多对一
+- 同一对多
+
+### 多对多
+- 拆分成两个一对多的关系（不包扩一对多关系中的一对一关系），只处理关联，不处理属性，属性使用单一对象操作
+- 多对多映射：/实体1/实体2， 返回的数据实体1关联实体2 或 /实体2/实体1，返回的数据实体2关联实体1
+####
+- 学生(std)和课程(cur)两个实体形成多对多的关系
+- 获取或修改某一学生的课程集合(学生课程一对多关系)：/stds/{stdid}/curs
+- 
+
+### 关系传递
+- 关系传递按照对应关系进行传递
+- 传递关系只针对获取操作，不支持修改操作
+
+#### 举例
+- 用户(user)，角色(role)，权限(permission)三者分别为用户角色多对多，角色权限多对多
+- 获取用户的角色权限集合设计: /users/{userid}/roles/permissions
+- 获取所有用户的所有角色权限集合：/users/roles/permissions
+- 获取拥有某种权限的角色和用户:/permissions/{permissionid}/roles/users
+- 获取拥有权限的所有角色和用户：/permissions/roles/users
 ## Http 方法举例
 - GET /companies: 获取公司实体集合 List all Companies (ID and Name, not too much detail)
 - POST /companies: 创建一个公司实体 Create a new Company
