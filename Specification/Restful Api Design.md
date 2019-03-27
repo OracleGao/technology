@@ -1,19 +1,19 @@
 # URI
 URI 表示资源，资源一般对应服务器端领域模型中的实体类。URI指向的是唯一的资源对象。
 ## URI命名规范
-- 全部使用小写字母
-- 使用减号（中杠）连接单词
+- 复合单词是用驼峰格式
 - 参数列表要encode，默认编码方式UTF-8
 - 名词表示资源集合，使用复数形式。
 
 # 请求（Request）
 ## Http 方法和特性
-| 方法        | 功能                       | 安全性  | 等幂性 |
-|:-----------:|:--------------------------:|:-------:|-------:|
+| 方法        | 功能                      | 安全性  | 等幂性 |
+|:-----------:|:------------------------:|:-------:|-------:|
 | GET         | 查找获取单个对象或集合     | R       | R      |
-| POST        | 新增创建对象               | X       | X      |
-| PUT         | 客户端提供对象进行更新     | X       | R      |
-| DELETE      | 删除对象                   | X       | X      |
+| POST        | 新增创建对象              | X       | X      |
+| PUT         | 客户端提供对象进行全量更新 | X       | R      |
+| PATCH       | 客户端提供对象进行部分更新 | X       | R      |
+| DELETE      | 删除对象                 | X       | X      |
 
 1. 安全性：不会改变资源状态，可以理解为只读的；
 2. 幂等性：执行1次和执行N次，对资源状态改变的效果是等价的。
@@ -22,15 +22,20 @@ URI 表示资源，资源一般对应服务器端领域模型中的实体类。U
 - GET /companies: 获取公司实体集合 List all Companies (ID and Name, not too much detail)
 - POST /companies: 创建一个公司实体 Create a new Company
 - GET /companies/{comid}: 获取单个公司实体 Retrieve an entire Company object
-- PUT /companies/{comid}: 更新整个公司实体 Update a Company (entire object)
+- PUT /companies/{comid}: 全量更新整个公司实体 Update a Company (entire object)（全量更新，没有传递的参数更新为Null）
+- PATCH /companies/{comid}: 部分更新公司实体（根据参数更新，没有传递或null的参数不进行属性更新）
 - DELETE /companies/{comid}: 删除公司实体 Delete a Company
-- GET /companies/{comid}/customers: 获取公司服务的客户集合 Retrieve a listing of Customers (ID and Name).
-- GET /customers: 获取客户实体集合 List all Customers (ID and Name).
+- GET /companies/{comid}/customers/list: 分页获取公司服务的客户集合.
+- GET /companies/{comid}/customers/listall: 获取公司服务的客户集合 Retrieve a listing of Customers (ID and Name).
+- GET /customers/list: 分页获取客户实体集合.
+- GET /customers/listall: 获取客户实体集合 List all Customers (ID and Name).
 - POST /customers: 创建一个新客户 Create a new Customer
 - GET /customers/{cusid}: 获取单个客户实体 Retrieve an Customer object
-- PUT /customers/{cusid}: 更新整个客户实体 Update an Customer (entire object)
+- PUT /customers/{cusid}: 全量更新整个客户实体 Update an Customer (entire object)
+- PATCH /customers/{cusid}: 部分更新整个客户实体 Update an Customer
 - DELETE /customers/{cusid}: 删除客户实体 Delete a Customer
-- GET /customers/{cusid}/companies: 获取为客户提供服务的公司集合 Retrieve a listing of Companies (ID and Name).
+- GET /customers/{cusid}/companies/list: 分页获取为客户提供服务的公司集合.
+- GET /customers/{cusid}/companies/listall: 获取为客户提供服务的公司集合 Retrieve a listing of Companies (ID and Name).
 
 ## 复杂查询
 |          | 示例                        |
@@ -100,13 +105,13 @@ URI 表示资源，资源一般对应服务器端领域模型中的实体类。U
     ]
 }
 ```
-- 多实体分页查询（分页采用spring标准Page<T>）
+- 多实体分页查询
 ```json
 {
     "code": "0",
     "message": "success",
     "content":{
-        "content": [
+        "data": [
             {
                 "companyId": "1",
                 "companyName": "动视暴雪",
@@ -123,13 +128,9 @@ URI 表示资源，资源一般对应服务器端领域模型中的实体类。U
                 "deleteFlag": "0" 
             }
         ],
-        "last": true,
-        "totalPages": 1,
-        "totalElements": 3,
-        "first": true,
-        "numberOfElements": 3,
-        "size": 20,
-        "number": 0
+        "currentPage": 0,
+        "perPage": 0,
+        "total": 0,
     }
 }
 ```
@@ -140,11 +141,11 @@ URI 表示资源，资源一般对应服务器端领域模型中的实体类。U
 | GET    | 单个实体或实体集合 |
 | POST   | 成功创建的实体     |
 | PUT    | 成功更新的实体     |
+| PATCH  | 成功更新的实体     |
 | DELETE | 空                 |
 
 ## json格式约定
-- 不传Null字段
-- 属性值均使用String格式
+- 不传Null字段，如果值为null,不需要填写在属性中
 
 # 版本（Version）
 -/api/v{main-version}
