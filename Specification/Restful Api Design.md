@@ -43,9 +43,10 @@ URI 表示资源，资源一般对应服务器端领域模型中的实体类。U
 #### 举例
 - 班级(cls)和学生(std)两个实体形成一对多的关系：一个班级有多个学生，而一个学生只能属于一个班级
 - 获取或更改学生信息设计：/clses/{clsid}/stds/{stdid}， 返回学生【CRUD】
-- 获取学生信息集合设计：/clses/{clsid}/stds/list，返回学生集合
-- 获取或修改班级信息设计：/stds/clses/{stdid}，返回班级
-- 移除学生移除班级：/stds/clses/{stdid}/relation【D】
+- 获取学生信息集合设计：/clses/{clsid}/stds/list，返回学生集合【R】
+- 获取或修改班级信息设计：/stds/clses/{stdid}，返回班级【R】
+- 把学生移除班级：/stds/clses/{stdid}/relation【D】
+- 班级分配学生:/clses/{clsid}/stds/relation【CUD】
 
 ### 多对一
 - 同一对多
@@ -55,8 +56,13 @@ URI 表示资源，资源一般对应服务器端领域模型中的实体类。U
 - 多对多映射：/实体1/实体2， 返回的数据实体1关联实体2 或 /实体2/实体1，返回的数据实体2关联实体1
 ####
 - 学生(std)和课程(cur)两个实体形成多对多的关系
-- 获取或修改某一学生的课程集合(学生课程一对多关系)：/stds/{stdid}/curs
-- 
+- 获取某一学生的课程集合(学生课程一对多关系)：/stds/{stdid}/curs/list【R】
+- 获取某一课程的所有学生(课程学生一对多关系)：/curs/{curid}/stds/list【R】
+- 操作某一学生的某个课程：/stds/{stdid}/curs/{curid}【CURD】
+- 操作莫一课程的某个学生：/curs/{curid}/stds/{stdud}【CURD】
+- 学生选课/stds/{stdid}/curs/relation【CUD】
+- 课程分配学生/curs/{cusid}/stds/relation【CUD】
+- 学生统一分配课程/curs/stds/relation【CUD】
 
 ### 关系传递
 - 关系传递按照对应关系进行传递
@@ -64,10 +70,11 @@ URI 表示资源，资源一般对应服务器端领域模型中的实体类。U
 
 #### 举例
 - 用户(user)，角色(role)，权限(permission)三者分别为用户角色多对多，角色权限多对多
-- 获取用户的角色权限集合设计: /users/{userid}/roles/permissions
-- 获取所有用户的所有角色权限集合：/users/roles/permissions
-- 获取拥有某种权限的角色和用户:/permissions/{permissionid}/roles/users
-- 获取拥有权限的所有角色和用户：/permissions/roles/users
+- 获取用户的角色权限集合设计: /users/{userid}/roles/permissions/listall
+- 获取所有用户的所有角色权限集合：/users/roles/permissions/listall
+- 获取拥有某种权限的角色和用户:/permissions/{permissionid}/roles/users/listall
+- 获取拥有权限的所有角色和用户：/permissions/roles/users/listall
+
 ## Http 方法举例
 - GET /companies: 获取公司实体集合 List all Companies (ID and Name, not too much detail)
 - POST /companies: 创建一个公司实体 Create a new Company
