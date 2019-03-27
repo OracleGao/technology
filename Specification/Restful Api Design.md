@@ -18,6 +18,11 @@ URI 表示资源，资源一般对应服务器端领域模型中的实体类。U
 1. 安全性：不会改变资源状态，可以理解为只读的；
 2. 幂等性：执行1次和执行N次，对资源状态改变的效果是等价的。
 
+## 实体模型表达
+- 在uri中使用/实体1s/e1id/实体2s/e2id表达一对一、一对多的关系
+- 在uri中使用/实体1s/实体2s/表达实体1与实体2多对多关联
+### 一对一
+
 ## Http 方法举例
 - GET /companies: 获取公司实体集合 List all Companies (ID and Name, not too much detail)
 - POST /companies: 创建一个公司实体 Create a new Company
@@ -55,8 +60,12 @@ URI 表示资源，资源一般对应服务器端领域模型中的实体类。U
     "deleteFlag": "0" 
 }
 ```
+## Consumes
 - Content-Type: application/x-www-form-urlencoded (浏览器POST表单用的格式)
-- Content-Type: multipart/form-data; boundary=—-RANDOM_jDMUxq4Ot5 (表单有文件上传时的格式)
+- Content-Type: multipart/form-data; (表单有文件上传时的格式)
+
+## Produces
+
 
 ## uri响应格式后缀
 - json（默认）：/companies/1.json（.json可选）
