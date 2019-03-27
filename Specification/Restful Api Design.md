@@ -25,7 +25,7 @@ URI 表示资源，资源一般对应服务器端领域模型中的实体类。U
 - 获取分页集合的uri使用list(单数)结尾
 - 获取全部集合的uri使用listall(单数)结尾
 - 建立或解除关联关系的uri使用relation(单数)结尾
-- 使用【CRUD】（Create，Read，Update,Delete）表示可用操作
+- 使用【CRUD】（Create，Read，Update，Delete）表示可用操作
 
 ### 一对一
 - /实体1/实体2/{实体1id}，操作实体2的数据【CRUD】
@@ -33,8 +33,8 @@ URI 表示资源，资源一般对应服务器端领域模型中的实体类。U
 
 #### 举例
 - 学生信息(std)和学生附加信息(stdattach)两个实体形成一对一的关系
-- 获取学生信息的uri设计为：/stdattachs/stds{said}，操作学生信息【CRUD】
-- 获取或修改附加信息的uri设计为：/stds/stdattachs/{stdid}，操作学生附加信息
+- 获取学生信息的uri设计为：/stdattachs/stds/{said}，操作学生信息【CRUD】
+- 获取或修改附加信息的uri设计为：/stds/stdattachs/{stdid}，操作学生附加信息【CRUD】
 
 ### 一对多
 - 一对多：/一端实体/{一端id}/多端实体/{多端id}， 返回的数据为一端实体集合
@@ -42,10 +42,10 @@ URI 表示资源，资源一般对应服务器端领域模型中的实体类。U
 
 #### 举例
 - 班级(cls)和学生(std)两个实体形成一对多的关系：一个班级有多个学生，而一个学生只能属于一个班级
-- 获取或更改学生信息设计：/clses/{clsid}/stds/{stdid}， 返回学生
+- 获取或更改学生信息设计：/clses/{clsid}/stds/{stdid}， 返回学生【CRUD】
 - 获取学生信息集合设计：/clses/{clsid}/stds/list，返回学生集合
 - 获取或修改班级信息设计：/stds/clses/{stdid}，返回班级
-- 移除学生移除班级：/stds/clses/{stdid}/relation【DL】
+- 移除学生移除班级：/stds/clses/{stdid}/relation【D】
 
 ### 多对一
 - 同一对多
