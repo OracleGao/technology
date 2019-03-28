@@ -113,11 +113,13 @@ URI 表示资源，资源一般对应服务器端领域模型中的实体类。U
 }
 ```
 ## Consumes
-- Content-Type: application/x-www-form-urlencoded (浏览器POST表单用的格式)
-- Content-Type: multipart/form-data; (表单有文件上传时的格式)
+- application/json
+- application/x-www-form-urlencoded (浏览器POST表单用的格式)
+- multipart/form-data; (表单有文件上传时的格式)
 
 ## Produces
-
+- application/json
+- application/x-download 文件下载
 
 ## uri响应格式后缀
 - json（默认）：/companies/1.json（.json可选）
