@@ -210,7 +210,8 @@ URI 表示资源，资源一般对应服务器端领域模型中的实体类。U
 | DELETE | 空                 |
 
 ## json格式约定
-- 不传Null字段，如果值为null,不需要填写在属性中
+- 入参允许部分字段，使用对象方式，允许Null
+- 出参返回全部字段，用Null表示空对象
 
 # 版本（Version）
 -/api/v{main-version}
