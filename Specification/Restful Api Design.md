@@ -18,6 +18,50 @@ URI 表示资源，资源一般对应服务器端领域模型中的实体类。U
 1. 安全性：不会改变资源状态，可以理解为只读的；
 2. 幂等性：执行1次和执行N次，对资源状态改变的效果是等价的。
 
+## Consumes
+- application/json
+- application/x-www-form-urlencoded (浏览器POST表单用的格式)
+- multipart/form-data; (表单有文件上传时的格式)
+
+## URI举例
+- GET /companies/list: 分页获取公司实体集合
+- GET /companies/listall: 获取公司实体集合
+- POST /companies: 创建一个公司实体 Create a new Company
+- GET /companies/{comid}: 获取单个公司实体 Retrieve an entire Company object
+- PUT /companies/{comid}: 全量更新整个公司实体 Update a Company (entire object)（全量更新，没有传递的参数更新为Null）
+- PATCH /companies/{comid}: 部分更新公司实体（根据参数更新，没有传递或null的参数不进行属性更新）
+- DELETE /companies/{comid}: 删除公司实体 Delete a Company
+- GET /companies/{comid}/customers/list: 分页获取公司服务的客户集合.
+- GET /companies/{comid}/customers/listall: 获取公司服务的客户集合 Retrieve a listing of Customers (ID and Name).
+- GET /customers/list: 分页获取客户实体集合.
+- GET /customers/listall: 获取客户实体集合 List all Customers (ID and Name).
+- POST /customers: 创建一个新客户 Create a new Customer
+- GET /customers/{cusid}: 获取单个客户实体 Retrieve an Customer object
+- PUT /customers/{cusid}: 全量更新整个客户实体 Update an Customer (entire object)
+- PATCH /customers/{cusid}: 部分更新整个客户实体 Update an Customer
+- DELETE /customers/{cusid}: 删除客户实体 Delete a Customer
+- GET /customers/{cusid}/companies/list: 分页获取为客户提供服务的公司集合.
+- GET /customers/{cusid}/companies/listall: 获取为客户提供服务的公司集合 Retrieve a listing of Companies (ID and Name).
+
+## 复杂查询
+|          | 示例                        |
+|:--------:|:---------------------------:|
+| 过滤条件 | ?type=1&status=0&...        |
+| 排序     | ?sort=age-desc,name-asc,... |
+| 投影     | ?whitelist=id,name,...      |
+| 分页     | ?page=1&size=20             |
+
+## Body 格式
+
+- Content-Type: application/json
+```json
+{
+    "companyId": "1",
+    "companyName": "动视暴雪",
+    "deleteFlag": "0" 
+}
+```
+
 ## 实体模型表达
 - 使用uri的资源和资源id关系表达关系数据模型
 - 返回的数据从uri左侧资源属性展开
@@ -75,56 +119,14 @@ URI 表示资源，资源一般对应服务器端领域模型中的实体类。U
 - 获取拥有某种权限的角色和用户:/permissions/{permissionid}/roles/users/listall
 - 获取拥有权限的所有角色和用户：/permissions/roles/users/listall
 
-## Http 方法举例
-- GET /companies: 获取公司实体集合 List all Companies (ID and Name, not too much detail)
-- POST /companies: 创建一个公司实体 Create a new Company
-- GET /companies/{comid}: 获取单个公司实体 Retrieve an entire Company object
-- PUT /companies/{comid}: 全量更新整个公司实体 Update a Company (entire object)（全量更新，没有传递的参数更新为Null）
-- PATCH /companies/{comid}: 部分更新公司实体（根据参数更新，没有传递或null的参数不进行属性更新）
-- DELETE /companies/{comid}: 删除公司实体 Delete a Company
-- GET /companies/{comid}/customers/list: 分页获取公司服务的客户集合.
-- GET /companies/{comid}/customers/listall: 获取公司服务的客户集合 Retrieve a listing of Customers (ID and Name).
-- GET /customers/list: 分页获取客户实体集合.
-- GET /customers/listall: 获取客户实体集合 List all Customers (ID and Name).
-- POST /customers: 创建一个新客户 Create a new Customer
-- GET /customers/{cusid}: 获取单个客户实体 Retrieve an Customer object
-- PUT /customers/{cusid}: 全量更新整个客户实体 Update an Customer (entire object)
-- PATCH /customers/{cusid}: 部分更新整个客户实体 Update an Customer
-- DELETE /customers/{cusid}: 删除客户实体 Delete a Customer
-- GET /customers/{cusid}/companies/list: 分页获取为客户提供服务的公司集合.
-- GET /customers/{cusid}/companies/listall: 获取为客户提供服务的公司集合 Retrieve a listing of Companies (ID and Name).
-
-## 复杂查询
-|          | 示例                        |
-|:--------:|:---------------------------:|
-| 过滤条件 | ?type=1&status=0&...        |
-| 排序     | ?sort=age-desc,name-asc,... |
-| 投影     | ?whitelist=id,name,...      |
-| 分页     | ?page=1&size=20             |
-
-## Body 格式
-
-- Content-Type: application/json
-```json
-{
-    "companyId": "1",
-    "companyName": "动视暴雪",
-    "deleteFlag": "0" 
-}
-```
-## Consumes
-- application/json
-- application/x-www-form-urlencoded (浏览器POST表单用的格式)
-- multipart/form-data; (表单有文件上传时的格式)
-
-## Produces
-- application/json
-- application/x-download 文件下载
-
 ## uri响应格式后缀
 - json（默认）：/companies/1.json（.json可选）
 
 # 应答（Response）
+
+## Produces
+- application/json
+- application/x-download 文件下载
 
 ## 业务响应码
 | 响应码 | 消息模版             | 应用场景 |
