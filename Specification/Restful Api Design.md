@@ -91,8 +91,8 @@ URI 表示资源，资源一般对应服务器端领域模型中的实体类。U
 - 获取或更改学生信息设计：/clses/{clsid}/stds/{stdid}， 返回学生【CRUD】
 - 获取学生信息集合设计：/clses/{clsid}/stds/list，返回学生集合【R】
 - 获取或修改班级信息设计：/stds/clses/{stdid}，返回班级【R】
-- 把学生移除班级：/stds/clses/{stdid}/relation【D】
-- 班级分配学生:/clses/{clsid}/stds/relation【CUD】
+- 把学生移除班级：/stds/clses/{stdid}【D】
+- 班级分配学生:/clses/{clsid}/stds【CUD】
 
 ### 多对一
 - 同一对多
@@ -106,9 +106,9 @@ URI 表示资源，资源一般对应服务器端领域模型中的实体类。U
 - 获取某一课程的所有学生(课程学生一对多关系)：/curs/{curid}/stds/list【R】
 - 操作某一学生的某个课程：/stds/{stdid}/curs/{curid}【CURD】
 - 操作莫一课程的某个学生：/curs/{curid}/stds/{stdud}【CURD】
-- 学生选课/stds/{stdid}/curs/relation【CUD】
-- 课程分配学生/curs/{cusid}/stds/relation【CUD】
-- 学生统一分配课程/curs/stds/relation【CUD】
+- 学生选课/stds/{stdid}/curs【CUD】
+- 课程分配学生/curs/{cusid}/stds【CUD】
+- 学生统一分配课程/curs/stds【CUD】
 
 ### 关系传递
 - 关系传递按照对应关系进行传递
