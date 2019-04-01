@@ -1,0 +1,124 @@
+swagger: "2.0"
+info:
+  version: "v1.0.0 20190401"
+  title: "Swagger接口文档模版"
+  description: |
+    # Swagger接口文档模版
+    ## v1.0.0 By 小砾 20190401
+    - 创建文档模板
+    - 新增，helloworld(tag: helloworld)
+
+host: "115.29.76.68:8080"
+basePath: "/api/project/v1.0"
+
+schemes:
+  - "http"
+  - "https"
+
+# 定义分组tag
+tags:
+  - name: "Helloworld"
+    description: "hello world"
+
+definitions:
+# 定义通用返回数据模型
+  ApiResponse: 
+    type: "object"
+    properties: &ApiResponse
+      code:
+        type: "integer"
+        enum:
+          - 0
+          - 1
+        description: "0:success, 1:failed"
+      message:
+        type: "string"
+        default: "success"
+
+# 定义通用分页数据模型
+  Pagination:
+    type: "object"
+    properties: &Pagination
+      currentPage:
+        type: "integer"
+        description: "页码"
+      perPage:
+        type: "integer"
+        description: "每页记录数"
+      total: 
+        type: "integer"
+        description: "总记录数"
+
+# 定义业务数据模型
+  Helloworld:
+    type: "object"
+    properties: &Helloworld
+      id: 
+        type: "integer"
+        description: "id"
+
+# 定义通用请求参数
+parameters:
+  PageParam:
+    in: "query"
+    name: "page"
+    type: "integer"
+    minimum: 1
+    default: 1
+  SizeParam:
+    in: "query"
+    name: "size"
+    type: "integer"
+    minimum: 1
+    maximum: 100
+    default: 10
+
+## 定义返回信息
+responses:
+  UnauthorizedError:
+    description: "Token is missing or invalid"
+  PermissionError:
+    description: "Permission denied"
+
+## 定义鉴权
+security:
+  - TokenHeader: []
+securityDefinitions:
+  TokenHeader:
+    type: "apiKey"
+    in: "header"
+    name: "token"
+
+paths:
+## 定义接口
+  /helloworlds:
+    post:
+      tags:
+        - "Helloworld"
+      summary: "Helloworld"
+      description: |
+        # Helloworld
+        - helloworld
+      consumes:
+        - "application/json"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          required: true
+          schema:
+            $ref: "#/definitions/Helloworld"
+      responses:
+        "200":
+          description: "operation success"
+          schema:
+            type: "object"
+            properties:
+              <<: *ApiResponse
+              content:
+                $ref: "#/definitions/Helloworld"
+        "401":
+          $ref: "#/responses/UnauthorizedError"
+        "403":
+          $ref: "#/responses/PermissionError"  
