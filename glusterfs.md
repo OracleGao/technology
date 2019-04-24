@@ -1,4 +1,6 @@
 # 【ERROR】 volume create: gfsv_service: failed: Host dev02 is not in 'Peer in Cluster' state
+- 目前发现有两种情况会报这个错误，1首次安装在Nat环境(阿里云)；2重新格式化或者重装，以下分别列出解决方案
+
 ## 首次安装
 ### 环境
 - 阿里云(aws)Nat环境，弹性公网ip(ECS公网)
