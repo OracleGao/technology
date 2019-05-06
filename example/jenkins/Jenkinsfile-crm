@@ -1,0 +1,93 @@
+pipeline {
+  agent {
+    node {
+      label 'agent115'
+    }
+
+  }
+  stages {
+    stage('prepare') {
+      steps {
+        git(url: 'https://code.clouderwork.com/cpic/cw-crm-deploy.git', branch: 'master', credentialsId: 'cwcode', changelog: true, poll: true)
+      }
+    }
+    stage('build') {
+      parallel {
+        stage('api') {
+          when {
+            anyOf {
+              environment name: 'DEPLOY', value: 'all'
+              environment name: 'DEPLOY', value: 'api'
+            }
+
+          }
+          steps {
+            dir(path: 'src/cw-crm-api-service') {
+              git(url: 'https://code.clouderwork.com/cpic/cw-crm-api-service.git', changelog: true, poll: true, credentialsId: 'cwcode', branch: "${API_BRANCH}")
+              sh './build.sh'
+            }
+
+          }
+        }
+        stage('web') {
+          when {
+            anyOf {
+              environment name: 'DEPLOY', value: 'all'
+              environment name: 'DEPLOY', value: 'web'
+            }
+
+          }
+          steps {
+            dir(path: 'src/cw-crm-web') {
+              git(url: 'https://code.clouderwork.com/cpic/cw-crm-web.git', credentialsId: 'cwcode', branch: "${WEB_BRANCH}", changelog: true, poll: true)
+              sh './build.sh'
+            }
+
+          }
+        }
+      }
+    }
+    stage('deploy') {
+      parallel {
+        stage('api') {
+          when {
+            anyOf {
+              environment name: 'DEPLOY', value: 'all'
+              environment name: 'DEPLOY', value: 'api'
+            }
+
+          }
+          steps {
+            dir(path: 'cw-crm-api') {
+              sh '''./cleanup.sh
+./startup.sh'''
+            }
+
+          }
+        }
+        stage('web') {
+          when {
+            anyOf {
+              environment name: 'DEPLOY', value: 'all'
+              environment name: 'DEPLOY', value: 'web'
+            }
+
+          }
+          steps {
+            dir(path: 'cw-crm-web') {
+              sh '''./cleanup.sh
+./startup.sh'''
+            }
+
+          }
+        }
+      }
+    }
+  }
+  environment {
+    PROFILE = 'dev'
+    DEPLOY = 'all'
+    API_BRANCH = 'master'
+    WEB_BRANCH = 'master'
+  }
+}
