@@ -1,0 +1,68 @@
+version: '2'
+
+services:
+  cw-org-gateway-service:
+    restart: always
+    image: ${DOCKER_REGISTRY}:cw-org-gateway-service-${PROFILE}-${GATEWAY_VERSION}
+    hostname: cw-org-gateway-service
+    ports:
+      - ${GATEWAY_PORT}:80
+    working_dir: /www
+    environment:
+      TZ: Asia/Shanghai
+    networks:
+      - cw-org
+    depends_on:
+      - "cw-org-api-service"
+    logging:
+      options:
+        max-size: 10mb
+
+  cw-org-api-service:
+    restart: always
+    image: registry.cn-beijing.aliyuncs.com/clouderwork/cpic:cw-org-api-service-${API_VERSION}
+    hostname: cw-org-api-service
+    user: root
+    environment:
+      - TZ=Asia/Shanghai
+      - SPRING_DATASOURCE_URL=jdbc:mysql://192.168.1.1:3306/org?useUnicode=true&characterEncoding=utf-8&useSSL=false
+      - SPRING_DATASOURCE_PASSWORD=changeit
+      - SPRING_REDIS_HOST=192.168.1.1
+      - SPRING_REDIS_PASSWORD=changeit
+      - CW_ORG_WEB_SERVICE_YUNWOKE_URL=http://192.168.1.1:8071
+      - CW_ORG_WEB_SERVICE_YUNWOKE_URL1=http://192.168.1.1:8051
+      - CW_ORG_WEB_SERVICE_OBJ_URL=http://192.168.1.1:8501/api/org/obj/v1.0
+      - CW_ORG_WEB_SERVICE_ACM_URL=http://192.168.1.1:8501/api/org/acm/v1.0
+      - CW_ORG_WEB_SERVICE_TAG_URL=http://192.168.1.1:8501/api/org/tag/v1.0
+      - CW_ORG_WEB_SERVICE_SMS_URL=http://192.168.1.1:8501/api/org/sms/v1.0
+      - CW_ORG_WEB_SERVICE_CRM_ACM_URL=http://192.168.1.1:8502/api/v1.0/crm/acm
+      - CW_ORG_WEB_SERVICE_ORG_URL_PRE=http://fun.pplm.com
+      - JAVA_OPTS=-Xms512m -Xmx2048m -Xss1024K -XX:MetaspaceSize=256m -XX:MaxMetaspaceSize=512m
+      - SPRING_KAFKA_BOOTSTRAP_SERVERS=192.168.1.1:9092
+      - CW_ORG_WEB_SERVICE_SWITCH=off
+    networks:
+      - cw-org
+    mem_limit: 2048m
+    logging:
+      options:
+        max-size: 10mb
+
+  cw-org-web:
+    restart: always
+    image: registry.cn-beijing.aliyuncs.com/clouderwork/cpic:cw-org-web-${WEB_VERSION}
+    hostname: cw-org-web
+    ports:
+      - ${WEB_PORT}:80
+    working_dir: /www
+    environment:
+      TZ: Asia/Shanghai
+    networks:
+      - cw-org
+    depends_on:
+      - "cw-org-gateway-service"
+    logging:
+      options:
+        max-size: 10mb
+
+networks:
+  cw-org:
