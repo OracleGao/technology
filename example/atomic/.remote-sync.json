@@ -1,0 +1,20 @@
+{
+  "logger": {
+    "title": "Project Title"
+  },
+  "uploadOnSave": true,
+  "useAtomicWrites": true,
+  "deleteLocal": false,
+  "hostname": "192.168.100.1",
+  "port": "22",
+  "target": "/home/project/src",
+  "ignore": [
+    ".remote-sync.json",
+    ".git/**",
+    "*.log"
+  ],
+  "username": "username",
+  "password": "changeit",
+  "watch": [],
+  "transport": "scp"
+}
